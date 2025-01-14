@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
       taskAdd.value = ""; // Clear the input field after adding the task
 
       const taskdiv = document.createElement("div");
-      // taskdiv.innerText = "new div";
       taskdiv.classList.add("task-container");
       taskContainer.appendChild(taskdiv);
 
@@ -19,35 +18,60 @@ document.addEventListener("DOMContentLoaded", () => {
       taskdiv.appendChild(listDiv);
 
       const listWrite = document.createElement("label");
-
       listWrite.classList.add("label-cl");
       listDiv.appendChild(listWrite);
 
       const listName = document.createElement("h1");
-      listName.innerHTML = task;
-
-      // const listName = document.createElement("input");
-      // listName.value = task;
+      listName.innerText = task;
       listWrite.appendChild(listName);
 
       const buttonGroups = document.createElement("div");
       buttonGroups.classList.add("buttonGroups");
       listDiv.appendChild(buttonGroups);
 
+      // Create Edit button
       const editbtn = document.createElement("button");
-      editbtn.innerHTML = "Edit";
+      editbtn.innerText = "Edit";
       editbtn.classList.add("btn-cl");
       buttonGroups.appendChild(editbtn);
 
+      // Create Delete button
       const deletebtn = document.createElement("button");
-      deletebtn.innerHTML = "Delete";
+      deletebtn.innerText = "Delete";
       deletebtn.classList.add("btn-cl");
       buttonGroups.appendChild(deletebtn);
+
+      // Attach delete functionality
+      deletebtn.addEventListener("click", (e) => {
+        e.target.parentElement.parentElement.remove(); // Remove the task container from the DOM
+      });
+
+      editbtn.addEventListener("click", () => {
+        if (editbtn.innerText === "Edit") {
+          // Change button to "Save"
+          editbtn.innerText = "Save";
+
+          // Convert task name to an input field for editing
+          const inputField = document.createElement("input");
+          inputField.type = "text";
+          inputField.value = listName.innerText;
+          inputField.classList.add("edit-input");
+          listWrite.replaceChild(inputField, listName);
+        } else {
+          // Save the changes
+          const inputField = listWrite.querySelector(".edit-input");
+          listName.innerText = inputField.value.trim();
+          listWrite.replaceChild(listName, inputField);
+
+          // Change button back to "Edit"
+          editbtn.innerText = "Edit";
+        }
+      });
     } else {
       alert("Please Enter a Task"); // Handle empty input
     }
   }
 
-  // Add event listener to the button
+  // Add event listener to the Add button
   addPress.addEventListener("click", createTask);
 });
