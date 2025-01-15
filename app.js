@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const taskContainer = document.getElementById("task-con");
 
   function createTask() {
-    const task = taskAdd.value.trim(); // Get the input value and trim whitespace
+    const task = taskAdd.value.trim();
     if (task) {
-      console.log(task); // Log the task to the console
-      taskAdd.value = ""; // Clear the input field after adding the task
+      console.log(task);
+      taskAdd.value = "";
 
       const taskdiv = document.createElement("div");
       taskdiv.classList.add("task-container");
@@ -29,19 +29,19 @@ document.addEventListener("DOMContentLoaded", () => {
       buttonGroups.classList.add("buttonGroups");
       listDiv.appendChild(buttonGroups);
 
-      // Create Edit button
+      //Edit button
       const editbtn = document.createElement("button");
       editbtn.innerText = "Edit";
       editbtn.classList.add("btn-cl");
       buttonGroups.appendChild(editbtn);
 
-      // Create Delete button
+      // Delete button
       const deletebtn = document.createElement("button");
       deletebtn.innerText = "Delete";
       deletebtn.classList.add("btn-cl");
       buttonGroups.appendChild(deletebtn);
 
-      // Attach delete functionality
+      // delete functionality
       deletebtn.addEventListener("click", (e) => {
         e.target.parentElement.parentElement.remove(); // Remove the task container from the DOM
       });
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Change button to "Save"
           editbtn.innerText = "Save";
 
-          // Convert task name to an input field for editing
+          // input field for editing
           const inputField = document.createElement("input");
           inputField.type = "text";
           inputField.value = listName.innerText;
